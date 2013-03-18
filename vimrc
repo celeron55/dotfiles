@@ -18,7 +18,7 @@ command -nargs=1 HC tabnew <args>.c | vsplit <args>.h
 "set mouse=a
 "set expandtab
 set scrolloff=1000
-set ai
+set copyindent
 set tabpagemax=50
 set list lcs=nbsp:_
 set nolist
