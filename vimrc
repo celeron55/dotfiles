@@ -35,7 +35,11 @@ let g:clang_user_options='|| exit 0'
 let g:clang_complete_auto=0
 au WinEnter * checktime
 
+" Highlight non-breaking spaces
+hi NbSpace ctermbg=red
+match NbSpace / /
+
 " Format-specific stuff
 "autocmd FileType php setlocal expandtab
 "autocmd FileType php echo "NOTE: File format is PHP -> expandtab has been enabled; run NE to disable"
-command! NE setlocal noexpandtab
+command NE setlocal noexpandtab
