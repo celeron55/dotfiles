@@ -4,6 +4,7 @@ set shiftwidth=4
 syntax on
 set background=dark
 set indentexpr=on
+set softtabstop=4
 " Disable parenthesis matching
 "let loaded_matchparen = 1
 map - :tabnext<CR>
@@ -18,6 +19,7 @@ command -nargs=1 HC tabnew <args>.c | vsplit <args>.h
 "set mouse=a
 "set expandtab
 set scrolloff=1000
+set ai
 set copyindent
 set tabpagemax=50
 set list lcs=nbsp:_
