@@ -16,6 +16,8 @@ map , :wincmd w<CR>
 " Command for opening cpp and h to a new tab in a vsplit view
 command -nargs=1 HCC tabnew <args>.cpp | vsplit <args>.h
 command -nargs=1 HC tabnew <args>.c | vsplit <args>.h
+command -nargs=1 HHCC tabnew src/<args>.cpp | vsplit include/<args>.h
+command -nargs=1 HHC tabnew src/<args>.c | vsplit include/<args>.h
 "set mouse=a
 "set expandtab
 set scrolloff=1000
