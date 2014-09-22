@@ -63,3 +63,6 @@ endif
 set formatoptions-=t
 " Don't autoinsert comments
 autocmd FileType * setlocal formatoptions-=r formatoptions-=o tw=80
+
+autocmd FileType yaml setlocal expandtab
+"autocmd FileType yaml echo "NOTE: File format is YAML -> expandtab has been enabled; run NE to disable"
