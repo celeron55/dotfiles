@@ -13,11 +13,15 @@ map , :wincmd w<CR>
 "imap CTRL-- :tabnext<CR>
 "imap CTRL-. :tabprev<CR>
 "imap  :wincmd w<CR>
+
 " Command for opening cpp and h to a new tab in a vsplit view
-command -nargs=1 HCC tabnew <args>.cpp | vsplit <args>.h
-command -nargs=1 HC tabnew <args>.c | vsplit <args>.h
+command! -nargs=1 -complete=file HCC let f=fnamemodify("<args>", ":r") | let $h = f . ".h" | let $c = f . ".cpp" | tabnew $h | vsplit $c
+command! -nargs=1 -complete=file HC  let f=fnamemodify("<args>", ":r") | let $h = f . ".h" | let $c = f . ".c"   | tabnew $h | vsplit $c
+"command -nargs=1 HCC tabnew <args>.cpp | vsplit <args>.h
+"command -nargs=1 HC tabnew <args>.c | vsplit <args>.h
 command -nargs=1 HHCC tabnew src/<args>.cpp | vsplit include/<args>.h
 command -nargs=1 HHC tabnew src/<args>.c | vsplit include/<args>.h
+
 "set mouse=a
 "set expandtab
 set scrolloff=1000
@@ -43,3 +47,19 @@ match NbSpace / /
 "autocmd FileType php setlocal expandtab
 "autocmd FileType php echo "NOTE: File format is PHP -> expandtab has been enabled; run NE to disable"
 command NE setlocal noexpandtab
+
+" gvim stuff
+if has("gui_running")
+	" dark color scheme
+	:colorscheme torte
+endif
+" Some random shit to make dart files to be syntax hilighted according to
+" ~/.vim/syntax/dart.vim
+if has("syntax")
+	filetype on
+	au BufNewFile,BufRead *.dart set filetype=dart
+endif
+" Don't auto-wrap text
+set formatoptions-=t
+" Don't autoinsert comments
+autocmd FileType * setlocal formatoptions-=r formatoptions-=o tw=80
