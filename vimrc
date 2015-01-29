@@ -9,7 +9,7 @@ set softtabstop=4
 "let loaded_matchparen = 1
 map - :tabnext<CR>
 map . :tabprev<CR>
-map , :wincmd w<CR>
+"map , :wincmd w<CR>
 "imap CTRL-- :tabnext<CR>
 "imap CTRL-. :tabprev<CR>
 "imap  :wincmd w<CR>
@@ -43,27 +43,69 @@ au WinEnter * checktime
 hi NbSpace ctermbg=red
 match NbSpace / /
 
-" Format-specific stuff
-"autocmd FileType php setlocal expandtab
-"autocmd FileType php echo "NOTE: File format is PHP -> expandtab has been enabled; run NE to disable"
-command NE setlocal noexpandtab
-
 " gvim stuff
 if has("gui_running")
 	" dark color scheme
 	:colorscheme torte
 endif
+
+" Don't auto-wrap text
+set formatoptions-=t
+
+" Don't autoinsert comments
+autocmd FileType * setlocal formatoptions-=r formatoptions-=o tw=80
+
 " Some random shit to make dart files to be syntax hilighted according to
 " ~/.vim/syntax/dart.vim
 if has("syntax")
 	filetype on
 	au BufNewFile,BufRead *.dart set filetype=dart
 endif
-" Don't auto-wrap text
-set formatoptions-=t
-" Don't autoinsert comments
-autocmd FileType * setlocal formatoptions-=r formatoptions-=o tw=80
+
+"
+" File format specific configurations
+"
+
+" Format-specific stuff
+" PHP is usually space-indented... but comment out for now
+"autocmd FileType php setlocal expandtab
+" yaml is always space-indented
 autocmd FileType yaml setlocal expandtab
-"autocmd FileType yaml echo "NOTE: File format is YAML -> expandtab has been enabled; run NE to disable"
+
+" Shorthand for noexpandtab
+command NE setlocal noexpandtab
+
 " Save session automatically so that restoring from crashes is easy
 autocmd WinEnter * mkses! session.vim.auto
+
+" .lzz is C++
+au BufRead,BufNewFile *.lzz set filetype=cpp
+
+" Use some magic to handle certain projects better: This function allows
+" changing syntax hilighting within predefined delimiters
+function! TextEnableCodeSnip(filetype,start,end,textSnipHl) abort
+  let ft=toupper(a:filetype)
+  let group='textGroup'.ft
+  if exists('b:current_syntax')
+    let s:current_syntax=b:current_syntax
+    " Remove current syntax definition, as some syntax files (e.g. cpp.vim)
+    " do nothing if b:current_syntax is defined.
+    unlet b:current_syntax
+  endif
+  execute 'syntax include @'.group.' syntax/'.a:filetype.'.vim'
+  try
+    execute 'syntax include @'.group.' after/syntax/'.a:filetype.'.vim'
+  catch
+  endtry
+  if exists('s:current_syntax')
+    let b:current_syntax=s:current_syntax
+  else
+    "unlet b:current_syntax
+  endif
+  execute 'syntax region textSnip'.ft.'
+  \ matchgroup='.a:textSnipHl.'
+  \ start="'.a:start.'" end="'.a:end.'"
+  \ contains=@'.group
+endfunction
+call TextEnableCodeSnip('javascript', '#ifdef COMPONENT_JAVASCRIPT_UI', '#endif', 'SpecialComment')
+
