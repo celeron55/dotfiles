@@ -17,10 +17,10 @@ map . :tabprev<CR>
 " Command for opening cpp and h to a new tab in a vsplit view
 command! -nargs=1 -complete=file HCC let f=fnamemodify("<args>", ":r") | let $h = f . ".h" | let $c = f . ".cpp" | tabnew $h | vsplit $c
 command! -nargs=1 -complete=file HC  let f=fnamemodify("<args>", ":r") | let $h = f . ".h" | let $c = f . ".c"   | tabnew $h | vsplit $c
-"command -nargs=1 HCC tabnew <args>.cpp | vsplit <args>.h
-"command -nargs=1 HC tabnew <args>.c | vsplit <args>.h
-command -nargs=1 HHCC tabnew src/<args>.cpp | vsplit include/<args>.h
-command -nargs=1 HHC tabnew src/<args>.c | vsplit include/<args>.h
+"command! -nargs=1 HCC tabnew <args>.cpp | vsplit <args>.h
+"command! -nargs=1 HC tabnew <args>.c | vsplit <args>.h
+command! -nargs=1 HHCC tabnew src/<args>.cpp | vsplit include/<args>.h
+command! -nargs=1 HHC tabnew src/<args>.c | vsplit include/<args>.h
 
 "set mouse=a
 "set expandtab
@@ -73,7 +73,7 @@ endif
 autocmd FileType yaml setlocal expandtab
 
 " Shorthand for noexpandtab
-command NE setlocal noexpandtab
+command! NE setlocal noexpandtab
 
 " Save session automatically so that restoring from crashes is easy
 autocmd WinEnter * mkses! session.vim.auto
@@ -107,5 +107,5 @@ function! TextEnableCodeSnip(filetype,start,end,textSnipHl) abort
   \ start="'.a:start.'" end="'.a:end.'"
   \ contains=@'.group
 endfunction
-call TextEnableCodeSnip('javascript', '#ifdef COMPONENT_JAVASCRIPT_UI', '#endif', 'SpecialComment')
+call TextEnableCodeSnip('javascript', '#ifdef ASPECT_JAVASCRIPT_UI', '#endif', 'SpecialComment')
 
