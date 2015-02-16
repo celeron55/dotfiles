@@ -76,7 +76,7 @@ autocmd FileType yaml setlocal expandtab
 command! NE setlocal noexpandtab
 
 " Save session automatically so that restoring from crashes is easy
-autocmd WinEnter * mkses! session.vim.auto
+autocmd BufWrite * mkses! session.vim.auto
 
 " .lzz is C++
 au BufRead,BufNewFile *.lzz set filetype=cpp
