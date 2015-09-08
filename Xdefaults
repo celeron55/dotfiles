@@ -1,8 +1,10 @@
+!urxvt stuff
 urxvt*background: black
 urxvt*foreground: white
 urxvt*termName: rxvt
 urxvt*scrollBar: false
 urxvt*iso14755_52: false
+urxvt*saveLines: 100000
 ! pseudo transparency
 urxvt*inheritPixmap: true
 urxvt*tintColor: white
@@ -22,7 +24,7 @@ urxvt*internalBorder: 1
 !! black dark/light
 *color0: #2E3436
 *color8: #555753
- 
+
 !! red dark/light
 *color1: #CC0000
 *color9: #EF2929
@@ -55,4 +57,13 @@ urxvt*internalBorder: 1
 !urxvt*font: 6x13
 ! UXGA
 urxvt*font: xft:Terminus:pixelsize=16
+
+! URXVT Ibus support
+URxvt.inputMethod: ibus
+URxvt.preeditType: OverTheSpot
+
+! URXVT hyperlink support
+URxvt.perl-ext-common:  default,matcher
+URxvt.urlLauncher:      firefox
+URxvt.matcher.button:   1
 
