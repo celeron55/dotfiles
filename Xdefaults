@@ -65,5 +65,5 @@ URxvt.preeditType: OverTheSpot
 ! URXVT hyperlink support
 URxvt.perl-ext-common:  default,matcher
 URxvt.urlLauncher:      firefox
-URxvt.matcher.button:   1
+URxvt.matcher.button:   2
 
