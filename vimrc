@@ -1,3 +1,6 @@
+" First load pathogen plugins if they exist
+silent! call pathogen#infect()
+" Then continue with regular stuff
 set nocompatible
 set tabstop=4
 set shiftwidth=4
@@ -80,6 +83,10 @@ autocmd BufWrite * mkses! .session.vim.auto
 
 " .lzz is C++
 au BufRead,BufNewFile *.lzz set filetype=cpp
+" .less is css
+au BufRead,BufNewFile *.less set filetype=css
+" .ino is C++
+au BufRead,BufNewFile *.ino set filetype=cpp
 
 " Use some magic to handle certain projects better: This function allows
 " changing syntax hilighting within predefined delimiters
