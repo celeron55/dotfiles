@@ -8,6 +8,7 @@ syntax on
 set background=dark
 set indentexpr=on
 set softtabstop=4
+set wildmode=longest,list
 " Disable parenthesis matching
 "let loaded_matchparen = 1
 map - :tabnext<CR>
@@ -18,8 +19,9 @@ map . :tabprev<CR>
 "imap  :wincmd w<CR>
 
 " Command for opening cpp and h to a new tab in a vsplit view
-command! -nargs=1 -complete=file HCC let f=fnamemodify("<args>", ":r") | let $h = f . ".h" | let $c = f . ".cpp" | tabnew $h | vsplit $c
-command! -nargs=1 -complete=file HC  let f=fnamemodify("<args>", ":r") | let $h = f . ".h" | let $c = f . ".c"   | tabnew $h | vsplit $c
+command! -nargs=1 -complete=file HCC let f=fnamemodify("<args>", ":r") | let $h = f . ".h"   | let $c = f . ".cpp" | tabnew $h | vsplit $c
+command! -nargs=1 -complete=file HPP let f=fnamemodify("<args>", ":r") | let $h = f . ".hpp" | let $c = f . ".cpp" | tabnew $h | vsplit $c
+command! -nargs=1 -complete=file HC  let f=fnamemodify("<args>", ":r") | let $h = f . ".h"   | let $c = f . ".c"   | tabnew $h | vsplit $c
 "command! -nargs=1 HCC tabnew <args>.cpp | vsplit <args>.h
 "command! -nargs=1 HC tabnew <args>.c | vsplit <args>.h
 command! -nargs=1 HHCC tabnew src/<args>.cpp | vsplit include/<args>.h
@@ -114,5 +116,8 @@ function! TextEnableCodeSnip(filetype,start,end,textSnipHl) abort
   \ start="'.a:start.'" end="'.a:end.'"
   \ contains=@'.group
 endfunction
+
 call TextEnableCodeSnip('javascript', '#ifdef ASPECT_JAVASCRIPT_UI', '#endif', 'SpecialComment')
+
+autocmd FileType html call TextEnableCodeSnip('javascript', '{{', '}}', 'SpecialComment')
 
