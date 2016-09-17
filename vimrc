@@ -1,6 +1,6 @@
 " Plugins
 " - rust.vim
-" - vim-fswitch (modify hpp,h to h,hpp)
+" - vim-fswitch
 
 " First load pathogen plugins if they exist
 silent! call pathogen#infect()
@@ -23,6 +23,14 @@ map . :tabprev<CR>
 "imap CTRL-- :tabnext<CR>
 "imap CTRL-. :tabprev<CR>
 "imap  :wincmd w<CR>
+"set mouse=a
+"set expandtab
+set scrolloff=1000
+set ai
+set copyindent
+set tabpagemax=50
+set list lcs=nbsp:_
+set nolist
 
 " F2, number[enter] opens buffer list and switches to buffer
 :nnoremap <F2> :buffers<CR>:buffer<Space>
@@ -41,17 +49,16 @@ command! -nargs=1 HHC tabnew src/<args>.c | vsplit include/<args>.h
 :nnoremap <F3> :FSSplitLeft<CR>
 :nnoremap <F4> :FSSplitRight<CR>
 
-" TODO: Some kind of command that will open the corresponding header or source
-"       file in an existing vsplit
+" The way Minetest and others are organized - no separate include alongside src
+au! BufEnter *.cpp let b:fswitchdst = 'h,hpp' | let b:fswitchlocs = '.'
+au! BufEnter *.h   let b:fswitchdst = 'c,cpp' | let b:fswitchlocs = '.'
 
-"set mouse=a
-"set expandtab
-set scrolloff=1000
-set ai
-set copyindent
-set tabpagemax=50
-set list lcs=nbsp:_
-set nolist
+" Use this for projects that have src and include
+function! FSinclude_along_src()
+    au! BufEnter *.cpp let b:fswitchdst = 'h,hpp' | let b:fswitchlocs = 'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|'
+    au! BufEnter *.h   let b:fswitchdst = 'c,cpp' | let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/,ifrel:|/include/|../src|'
+endfunction
+
 " Open definition in new tab
 "map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map ´ :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
@@ -63,7 +70,12 @@ au WinEnter * checktime
 
 " Highlight non-breaking spaces
 hi NbSpace ctermbg=red
-match NbSpace / /
+au! BufEnter * match NbSpace / /
+" Hilight other suspicious spaces
+hi LeadingSpace ctermbg=darkgrey
+au! BufEnter * match LeadingSpace /^ \+/
+hi TrailingSpace ctermbg=darkgrey
+au! BufEnter * match TrailingSpace / \+$/
 
 " gvim stuff
 if has("gui_running")
