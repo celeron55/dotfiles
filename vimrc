@@ -1,5 +1,10 @@
+" Plugins
+" - rust.vim
+" - vim-fswitch (modify hpp,h to h,hpp)
+
 " First load pathogen plugins if they exist
 silent! call pathogen#infect()
+
 " Then continue with regular stuff
 set nocompatible
 set tabstop=4
@@ -9,6 +14,7 @@ set background=dark
 set indentexpr=on
 set softtabstop=4
 set wildmode=longest,list
+set belloff=all,backspace
 " Disable parenthesis matching
 "let loaded_matchparen = 1
 map - :tabnext<CR>
@@ -18,6 +24,9 @@ map . :tabprev<CR>
 "imap CTRL-. :tabprev<CR>
 "imap  :wincmd w<CR>
 
+" F2, number[enter] opens buffer list and switches to buffer
+:nnoremap <F2> :buffers<CR>:buffer<Space>
+
 " Command for opening cpp and h to a new tab in a vsplit view
 command! -nargs=1 -complete=file HCC let f=fnamemodify("<args>", ":r") | let $h = f . ".h"   | let $c = f . ".cpp" | tabnew $h | vsplit $c
 command! -nargs=1 -complete=file HPP let f=fnamemodify("<args>", ":r") | let $h = f . ".hpp" | let $c = f . ".cpp" | tabnew $h | vsplit $c
@@ -26,6 +35,14 @@ command! -nargs=1 -complete=file HC  let f=fnamemodify("<args>", ":r") | let $h 
 "command! -nargs=1 HC tabnew <args>.c | vsplit <args>.h
 command! -nargs=1 HHCC tabnew src/<args>.cpp | vsplit include/<args>.h
 command! -nargs=1 HHC tabnew src/<args>.c | vsplit include/<args>.h
+
+" Some kind of commands that will open the corresponding header or source
+" file in a newly made vsplit (vim-fswitch)
+:nnoremap <F3> :FSSplitLeft<CR>
+:nnoremap <F4> :FSSplitRight<CR>
+
+" TODO: Some kind of command that will open the corresponding header or source
+"       file in an existing vsplit
 
 "set mouse=a
 "set expandtab
@@ -77,6 +94,8 @@ endif
 " yaml is always space-indented
 autocmd FileType yaml setlocal expandtab
 
+" Shorthand for expandtab
+command! E setlocal expandtab
 " Shorthand for noexpandtab
 command! NE setlocal noexpandtab
 
