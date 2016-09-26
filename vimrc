@@ -2,11 +2,13 @@
 " - rust.vim
 " - vim-fswitch
 
+" This should generally come first
+set nocompatible
+
 " First load pathogen plugins if they exist
 silent! call pathogen#infect()
 
 " Then continue with regular stuff
-set nocompatible
 set tabstop=4
 set shiftwidth=4
 syntax on
@@ -31,6 +33,7 @@ set copyindent
 set tabpagemax=50
 set list lcs=nbsp:_
 set nolist
+set history=200
 
 " F2, number[enter] opens buffer list and switches to buffer
 :nnoremap <F2> :buffers<CR>:buffer<Space>
