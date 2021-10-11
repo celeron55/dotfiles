@@ -110,9 +110,12 @@ endif
 autocmd FileType yaml setlocal expandtab
 
 " Shorthand for expandtab
-command! E setlocal expandtab
+command! E setlocal expandtab | setlocal shiftwidth=4 | setlocal softtabstop=4 | setlocal tabstop=4
+command! E4 setlocal expandtab | setlocal shiftwidth=4 | setlocal softtabstop=4 | setlocal tabstop=4
+command! E3 setlocal expandtab | setlocal shiftwidth=3 | setlocal softtabstop=3 | setlocal tabstop=3
+command! E2 setlocal expandtab | setlocal shiftwidth=2 | setlocal softtabstop=2 | setlocal tabstop=2
 " Shorthand for noexpandtab
-command! NE setlocal noexpandtab
+command! NE setlocal noexpandtab | setlocal shiftwidth=4 | setlocal softtabstop=4 | setlocal tabstop=4
 
 " Save session automatically so that restoring from crashes is easy
 autocmd BufWrite * mkses! .session.vim.auto
