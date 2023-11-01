@@ -107,7 +107,7 @@ defnonblock 5
 # screen -t mail 8 mutt
 # screen -t daemon 9 tail -f /var/log/daemon.log
 
-term xterm-color
+#term xterm-color
 
 #caption always "%{kG}%?%-Lw%?%{kw}%n*%f %t%?(%u)%?%{kG}%?%+Lw%? %= %{kG}%d.%m. %{kG}%c "
 caption always "%{wK}%?%-Lw%?%{Kw}%n*%f %t%?(%u)%?%{wK}%?%+Lw%? %= %d.%m. %c "
