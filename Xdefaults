@@ -5,12 +5,19 @@ urxvt*termName: rxvt
 urxvt*scrollBar: false
 urxvt*iso14755_52: false
 urxvt*saveLines: 100000
+
 ! pseudo transparency
-urxvt*inheritPixmap: true
-urxvt*tintColor: white
-!urxvt*shading: 0
-!urxvt*shading: 8
-urxvt*shading: 16
+!urxvt*pixmap: /home/celeron55/random/old/2016-04/8dromeda/8dromeda_productions_logo5_alt10_wallpaper_1920x1280.png;style=root-tiled
+! These used to work:
+!urxvt*inheritPixmap: true
+!urxvt*shading: 16
+!urxvt*tintColor: white
+! These work but it looks different
+urxvt*background.expr: shade -0.83, rootalign root
+!urxvt*background.expr: rootalign keep {muladd 0.15, 0.0, root}
+!urxvt*background.expr: contrast 0.165, rootalign root
+
+! Other stuff
 urxvt*internalBorder: 1
 !default font
 !urxvt*font: 9x15
@@ -59,11 +66,11 @@ urxvt*internalBorder: 1
 urxvt*font: xft:Terminus:pixelsize=16
 
 ! URXVT Ibus support
-URxvt.inputMethod: ibus
-URxvt.preeditType: OverTheSpot
+urxvt.inputMethod: ibus
+urxvt.preeditType: OverTheSpot
 
 ! URXVT hyperlink support
-URxvt.perl-ext-common:  default,matcher
-URxvt.urlLauncher:      firefox
-URxvt.matcher.button:   2
+urxvt.perl-ext-common:  default,matcher
+urxvt.url-launcher:      /home/celeron55/bin/firefox
+urxvt.matcher.button:   2
 
