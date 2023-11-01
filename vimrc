@@ -27,6 +27,7 @@ map . :tabprev<CR>
 "imap  :wincmd w<CR>
 "set mouse=a
 "set expandtab
+set noexpandtab
 set scrolloff=1000
 set ai
 set copyindent
@@ -34,6 +35,7 @@ set tabpagemax=50
 set list lcs=nbsp:_
 set nolist
 set history=200
+set noincsearch
 
 " F2, number[enter] opens buffer list and switches to buffer
 :nnoremap <F2> :buffers<CR>:buffer<Space>
@@ -71,19 +73,18 @@ let g:clang_user_options='|| exit 0'
 let g:clang_complete_auto=0
 au WinEnter * checktime
 
-" Highlight non-breaking spaces
-hi NbSpace ctermbg=red
-au! BufEnter * match NbSpace / /
-" Hilight other suspicious spaces
-hi LeadingSpace ctermbg=darkgrey
-au! BufEnter * match LeadingSpace /^ \+/
-hi TrailingSpace ctermbg=darkgrey
-au! BufEnter * match TrailingSpace / \+$/
+" Custom syntax hilighting
+
+" TODO: Highlight non-breaking spaces
+" TODO: Hilight leading spaces (maybe)
+" TODO: Hilight trailing spaces
 
 " gvim stuff
 if has("gui_running")
 	" dark color scheme
 	:colorscheme torte
+	set guifont=Monospace\ Regular\ 13
+	set lines=50 columns=90
 endif
 
 " Don't auto-wrap text
@@ -108,6 +109,9 @@ endif
 "autocmd FileType php setlocal expandtab
 " yaml is always space-indented
 autocmd FileType yaml setlocal expandtab
+
+autocmd FileType cpp setlocal noexpandtab
+autocmd FileType c setlocal noexpandtab
 
 " Shorthand for expandtab
 command! E setlocal expandtab | setlocal shiftwidth=4 | setlocal softtabstop=4 | setlocal tabstop=4
