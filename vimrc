@@ -71,7 +71,20 @@ map ´ :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 "map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 let g:clang_user_options='|| exit 0'
 let g:clang_complete_auto=0
-au WinEnter * checktime
+
+" This is annoying because it checks background buffers also
+"au WinEnter * checktime
+
+" This is better as it only checks the current buffer and additionally it
+" shouldn't check anything when entering buffers that aren't files
+au BufEnter * call CheckTimeForCurrentBuffer()
+function! CheckTimeForCurrentBuffer()
+	let l:current_buffer = expand('%')
+	if &buftype == '' && l:current_buffer != ''
+		" We'll simulate checking only the current buffer here
+		execute ':checktime ' . fnameescape(l:current_buffer)
+	endif
+endfunction
 
 " Custom syntax hilighting
 
